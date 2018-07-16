@@ -5,6 +5,7 @@
     ],
     "jsRules": {},
     "rules": {
+        "no-default-export": false,
         "prefer-function-over-method": false,
         "member-access": false,
         "no-parameter-properties": false,
