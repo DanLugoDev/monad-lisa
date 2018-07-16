@@ -1,0 +1,56 @@
+{
+  "name": "monad-lisa",
+  "version": "1.0.0",
+  "description": "Metaparser based on monads",
+  "author": {
+    "name": "Daniel Lugo",
+    "email": "danlugo92@gmail.com",
+    "url": "http://twitter.com/danlugo92"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:danlugo92/resource-pool.git"
+  },
+  "bugs": {
+    "email": "danlugo92@gmail.com",
+    "url": "https://github.com/danlugo92/monad-lisa/issues"
+  },
+  "keywords": [
+    "parser",
+    "compiler",
+    "ast",
+    "abstract",
+    "syntax",
+    "tree"
+  ],
+  "main": "lib/monad-lisa.js",
+  "unpkg": "lib/monad-lisa.min.js",
+  "homepage": "https://github.com/danlugo92/monad-lisa#readme",
+  "dependencies": {
+    "immutable": "3.x.x"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.8.7",
+    "@types/webpack": "^4.4.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "jasmine": "^3.1.0",
+    "ts-loader": "^4.3.0",
+    "ts-node": "^6.0.3",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
+  },
+  "scripts": {
+    "test": "ts-node --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine",
+    "lint": "tslint --project ./tsconfig.json",
+    "build": "webpack",
+    "prepublishOnly": "npm run lint && npm run test && npm run build"
+  },
+  "types": "./index.d.ts",
+  "engines": {
+    "node": ">=10.1.0"
+  }
+}

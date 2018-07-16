@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": false,
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "es6",
+    "moduleResolution": "Node",
+    "newLine": "crlf",
+    "noEmitOnError": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./lib",
+    "paths": {
+      "@app/*": ["src/*"]
+    },
+    "removeComments": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "target": "es3",
+    "lib": [
+      "esnext"
+    ]
+  },
+  "include": [
+    "src/**/*",
+    // this is only so typescript/linters don't complain about mapped path
+    // imports in the spec folder, we wont compile this folder directly (we'll
+    // use ts-node) and we wont be running tsc for that matter too.
+    "spec/**/*"
+  ]
+}
