@@ -3,7 +3,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": false,
     "alwaysStrict": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
     "module": "es6",

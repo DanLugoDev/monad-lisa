@@ -1,21 +1,15 @@
-import SingleMonad from '@app/monads/int/SingleMonad'
-import Token from '@app/Token'
 import Type from '@app/Type'
 
 export interface Many extends Type {
-  separatedBy(separator: Type): this
-  allowTraillingSeparator(): this
+  separator?: Type
+  traillingSeparatorAllowed: boolean
+  separatedBy(separator: Type): Many
+  allowTraillingSeparator(): Many
 }
 
-class _Many extends SingleMonad {
-  private traillingSeparatorAllowed: boolean = false
-  private separator: Type|undefined = undefined
-
-  separatedBy(type: Type): this {
-    this.separator = type
-    return this
-  }
-
+const Many = (of: Type, name?: string): Many => ({
+  name,
+  traillingSeparatorAllowed: false,
   allowTraillingSeparator() {
     if (typeof this.separator === 'undefined') {
       throw new Error('Specify separator before calling this method')
@@ -25,14 +19,16 @@ class _Many extends SingleMonad {
     }
     this.traillingSeparatorAllowed = true
     return this
-  }
-
-  matches(tokens: Set<Token>): boolean {
+  },
+  dependencies() {
+    return new Set([of, ...of.dependencies()])
+  },
+  matches(tokens) {
     if (typeof this.separator === 'undefined') {
-      throw new Error('Specify separator first')
+      throw new ReferenceError('Specify separator first')
     }
     if (tokens.size < 1) return false
-    const separator = <Type>this.separator
+    const separator = this.separator as Type
     const trailling = this.traillingSeparatorAllowed
     // MDN says insertion order
     const tokenList = Array.from(tokens)
@@ -42,18 +38,24 @@ class _Many extends SingleMonad {
     const separators = actualTokens.filter((_, i) => i % 2 === 1)
 
     // if any of the candidate tokens don't match the "of" type, don't match.
-    if (actualTokens.some(token => token.matchedBy !== this.of)) return false
+    if (actualTokens.some(token => token.matchedBy !== of)) return false
 
     // if any of the candidate separators is of the wrong type, there's no match
     if (separators.some(sep => sep.matchedBy !== separator)) return false
 
     if (trailling) {
-      return separators.length === actualTokens.length -1
-        || separators.length === actualTokens.length
+      return (
+        separators.length === actualTokens.length - 1 ||
+        separators.length === actualTokens.length
+      )
     } else {
       return separators.length === actualTokens.length
     }
+  },
+  separatedBy(separator) {
+    this.separator = separator
+    return this
   }
-}
+})
 
-export const Many = (of: Type, name?: string): Many => new _Many(of, name)
+export default Many

@@ -4,8 +4,6 @@
 type Char = string
 export default Char
 
-export type Chars = ReadonlyArray<Char>
-
 /**
  * Determines wheter a given x is a Char. A char is an string of length one
  * or a zero-length one (to allow for Nothing to be checked as a Char in a
@@ -13,5 +11,5 @@ export type Chars = ReadonlyArray<Char>
  * @see Nothing
  * @param x The x to be tested
  */
-export const isChar =
-  (x: any): x is Char => typeof x === 'string' && x.length <= 1
+export const isChar = (x: any): x is Char =>
+  typeof x === 'string' && x.length <= 1

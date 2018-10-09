@@ -1,4 +1,4 @@
-import Type from '@app/Type'
+import Type from './Type'
 
 /**
  * A token, in common parsing argo token, represents an indivisible
@@ -31,5 +31,5 @@ export default interface Token {
    * Other children could match, and other types could match these same
    * children.
    */
-  readonly children: Set<Token>
+  readonly children: ReadonlySet<Token>
 }

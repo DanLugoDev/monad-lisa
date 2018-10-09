@@ -1,5 +1,5 @@
 import Token from '@app/Token'
-import { isSet } from '@app/utils/set'
+import { isSet } from './utils'
 
 /**
  * Category theory
@@ -15,16 +15,10 @@ export default interface Type {
   /**
    * Optional if you want a JSON/string representation of the AST.
    */
-  name?: string
+  readonly name?: string
 
   /**
-   * Given a set of tokens, returns whether this set of tokens represents this
-   * type or doesn't.
-   */
-  matches(tokens: Set<Token>): boolean  
-
-  /**
-   * Returns a set of types on which this type is fundamented and is dependant 
+   * Returns a set of types on which this type is fundamented and is dependant
    * on them being present in memory for a sucessful and correct matches() call.
    * This contract shall not be broken.
    * Dependencies are then loaded into the constructor @see {Constructor} and
@@ -35,19 +29,33 @@ export default interface Type {
    * @see {Constructor} for details on how this set is used.
    */
   dependencies(): Set<Type>
+
+  /**
+   * Given a set of tokens, returns whether this set of tokens represents this
+   * type or doesn't.
+   */
+  matches(tokens: ReadonlySet<Token>): boolean
 }
 
-export type Types = ReadonlyArray<Type>
-
 export const isType = (x: any): x is Type => {
-  if (typeof x !== 'object') return false
-  if (typeof x.matches !== 'function') return false
-  if (typeof x.dependencies !== 'function') return false
-  if (!isSet(x.dependencies())) return false
-  let allDepsAreTypes: boolean = true
+  if (typeof x !== 'object') {
+    return false
+  }
+  if (typeof x.matches !== 'function') {
+    return false
+  }
+  if (typeof x.dependencies !== 'function') {
+    return false
+  }
+  if (!isSet(x.dependencies())) {
+    return false
+  }
+
+  let allDepsAreTypes = true
+
   for (const dep of x.dependencies()) {
     allDepsAreTypes = isType(dep)
   }
+
   return allDepsAreTypes
 }
-

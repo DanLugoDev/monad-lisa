@@ -1,0 +1,29 @@
+import Type from '@app/Type'
+import { isSet } from '../utils'
+
+type Either = (of: ReadonlyArray<Type>, name?: string) => Type
+
+const Either: Either = (of, name) => {
+  if (of.length < 2) {
+    throw new TypeError('Either accepts at least 2 types')
+  }
+  if (!isSet(of)) {
+    throw new TypeError('Types provided to Either must be unique')
+  }
+
+  return {
+    name,
+    dependencies() {
+      const dependenciesOfDependencies = of
+        .map(type => type.dependencies())
+        .flat()
+
+      return new Set([...of, ...dependenciesOfDependencies])
+    },
+    matches(tokens) {
+      return of.some(type => type.matches(tokens))
+    }
+  }
+}
+
+export default Either

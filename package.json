@@ -27,18 +27,19 @@
   "main": "lib/monad-lisa.js",
   "unpkg": "lib/monad-lisa.min.js",
   "homepage": "https://github.com/danlugo92/monad-lisa#readme",
-  "dependencies": {
-    "immutable": "3.x.x"
-  },
   "devDependencies": {
-    "@types/jasmine": "^2.8.7",
+    "@types/jasmine": "^2.8.9",
     "@types/webpack": "^4.4.0",
     "clean-webpack-plugin": "^0.1.19",
-    "jasmine": "^3.1.0",
+    "jasmine": "2.x.x",
+    "prettier": "^1.14.3",
+    "prettier-tslint": "^0.4.0",
     "ts-loader": "^4.3.0",
     "ts-node": "^6.0.3",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.2",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.1.1",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.8.3",
     "webpack-cli": "^2.1.3"

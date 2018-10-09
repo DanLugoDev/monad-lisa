@@ -1,9 +1,10 @@
 // Dan: I trust ramda's philosophy in using the predicate as the first parameter
 // but in this case I'll ignore it just for readability's sake.
 
-export const map =
-  <T, U>(set: Set<T>, predicate: (item: T) => U): Set<U> =>
-{
+export const map = <T, U>(
+  predicate: (item: T) => U,
+  set: ReadonlySet<T>
+): Set<U> => {
   const newSet = new Set<U>()
   for (const item of set) {
     newSet.add(predicate(item))
@@ -11,9 +12,10 @@ export const map =
   return newSet
 }
 
-export const filter =
-  <T>(set: Set<T>, predicate: (item: T) => boolean): Set<T> =>
-{
+export const filter = <T>(
+  predicate: (item: T) => boolean,
+  set: ReadonlySet<T>
+): Set<T> => {
   const newSet = new Set<T>()
   for (const item of set) {
     if (predicate(item)) {
@@ -23,20 +25,22 @@ export const filter =
   return newSet
 }
 
-export const every = <T>(set: Set<T>, predicate: (item: T) => boolean): boolean =>
-{
-  let every = true
+export const every = <T>(
+  set: ReadonlySet<T>,
+  predicate: (item: T) => boolean
+): boolean => {
+  let isEvery = false
   for (const item of set) {
-    every = predicate(item)
+    isEvery = predicate(item)
   }
-  return every
+  return isEvery
 }
 
 /**
  * Returns the first item from whatever iteration order the set provides.
  * @param set The set from which the item will be picked
  */
-export const pickFirst = <T>(set: Set<T>): T => {
+export const pickFirst = <T>(set: ReadonlySet<T>): T => {
   if (set.size < 1) throw new Error()
   let first
   for (const item of set) {
@@ -46,35 +50,35 @@ export const pickFirst = <T>(set: Set<T>): T => {
   return first as T
 }
 
-/**
- * Checks if a list is a set, that is, no elements repeat.
- * Primites are checked by value, objects by reference.
- * @param list The list to be checked
- */
-export const isSet = <T>(list: ReadonlyArray<T>|Set<T>): boolean => {
-  const asSet = new Set<T>(list)
-  return Array.isArray(list) ? asSet.size === list.length : true
-}
+type ReduceCallback<T, U> = (
+  previousValue: U,
+  currentValue: T,
+  set: ReadonlySet<T>
+) => U
 
+export const reduce = <T, U>(
+  callbackfn: ReduceCallback<T, U | undefined>,
+  set: ReadonlySet<T>
+): U | undefined => {
+  let result: U | undefined
 
-
-interface Reduce {
-  <T, U>(set: Set<T>,predicate: (prev: U|undefined, nxt: T) => U): U|undefined
-  <T, U>(
-    set: Set<T>,
-    predicate: (prev: U, nxt: T) => U,
-    initialValue: U): U
-}
-
-export const reduce: Reduce =
-  <T, U>(
-    set: Set<T>,
-    predicate: (prev: U|undefined, nxt: T) => U,
-    initialValue?: U) =>
-{
-  let finalValue: U|undefined = initialValue
   for (const item of set) {
-    finalValue = predicate(finalValue, item)
+    result = callbackfn(result, item, set)
   }
-  return finalValue
+
+  return result
+}
+
+export const reduceWithInitial = <T, U>(
+  callbackfn: ReduceCallback<T, U>,
+  initialValue: U,
+  set: ReadonlySet<T>
+) => {
+  let result = initialValue
+
+  for (const item of set) {
+    result = callbackfn(result, item, set)
+  }
+
+  return result
 }
