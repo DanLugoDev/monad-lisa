@@ -16,6 +16,9 @@ export const Tokenizer: Type = {
   },
   matches() {
     return false
+  },
+  transform() {
+    throw new Error('Fatal error: transform() called on Tokenizer')
   }
 }
 
@@ -151,6 +154,8 @@ export const AnyCaseLetter = Either(
   [LowerCaseLetter, UpperCaseLetter],
   'AnyCaseLetter'
 )
+
+export const Word = Many(AnyCaseLetter).separatedBy(Nothing)
 
 export const LeftParen = Glyph(Tokenizer, '(', 'LeftParen')
 export const RightParen = Glyph(Tokenizer, '(', 'RightParen')

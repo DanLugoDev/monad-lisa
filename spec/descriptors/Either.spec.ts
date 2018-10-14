@@ -2,8 +2,18 @@ import 'jasmine'
 
 import { Tokenizer } from '../../src/builtin'
 import Either from '../../src/descriptors/Either'
+import Glyph from '../../src/descriptors/Glyph'
 import Token from '../../src/Token'
 import Type from '../../src/Type'
+
+const createTestTokenSet = (strs: string[]): ReadonlySet<Token> =>
+  new Set<Token>(
+    strs.map<Token>(str => ({
+      children: new Set(),
+      matchedBy: Tokenizer,
+      text: str
+    }))
+  )
 
 const falseType: Type = {
   dependencies() {
@@ -64,5 +74,29 @@ describe('Either', () => {
   it('matches when given at least one always-true type', () => {
     const instance = Either([trueType, falseType])
     expect(instance.matches(testSet))
+  })
+
+  it('Matches A or B when given A and B', () => {
+    const testTypeA = Glyph(Tokenizer, 'foo')
+    const testTypeB = Glyph(Tokenizer, 'baz')
+    const eitherTest = Either([testTypeA, testTypeB])
+
+    const foo = new Set<Token>([
+      {
+        children: new Set(),
+        matchedBy: Tokenizer,
+        text: 'foo'
+      }
+    ])
+
+    const baz = new Set<Token>([
+      {
+        children: new Set(),
+        matchedBy: Tokenizer,
+        text: 'baz'
+      }
+    ])
+
+    expect(eitherTest.matches(foo) && eitherTest.matches(baz)).toBeTruthy()
   })
 })

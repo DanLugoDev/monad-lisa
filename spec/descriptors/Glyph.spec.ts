@@ -61,11 +61,11 @@ describe('Glyph', () => {
     })
 
     it('matches one token with an empty string', () => {
-      expect(instance.matches(singleTokenEmptyString))
+      expect(instance.matches(singleTokenEmptyString)).toBeTruthy()
     })
 
     it('matches several tokens with empty strings', () => {
-      expect(instance.matches(multipleTokensEmptyStrings))
+      expect(instance.matches(multipleTokensEmptyStrings)).toBeTruthy()
     })
 
     it("doesn't match non-empty strings", () => {

@@ -48,7 +48,8 @@
     "test": "ts-node --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine",
     "lint": "tslint --project ./tsconfig.json",
     "build": "webpack",
-    "prepublishOnly": "npm run lint && npm run test && npm run build"
+    "prepublishOnly": "npm run lint && npm run test && npm run build",
+    "test:live": "NODE_ENV=development nodemon --exec  ts-node --project ./tsconfig.test.json node_modules/jasmine/bin/jasmine --debug"
   },
   "types": "./index.d.ts",
   "engines": {

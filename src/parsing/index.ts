@@ -1,14 +1,18 @@
 import { Tokenizer } from '@app/builtin'
+import Lazy, { isLazy } from '@app/descriptors/Lazy'
 import Token from '@app/Token'
 import Type from '@app/Type'
 import { filter, map, pickFirst } from '@app/utils/set'
 import findBranches from './findBranches'
+import lazyToReal from './lazyToReal'
 
 // returns one single token representing the root of the AST
 type Parser = (sourceCodeCharArray: ReadonlyArray<string>) => Token
 
 export const createParser = (rootType: Type): Parser => {
-  const allTypes = rootType.dependencies()
+  const allTypesIncludingLazy = rootType.dependencies()
+
+  const allTypes = map(lazyToReal, allTypesIncludingLazy)
 
   return (sourceCodeCharArray: ReadonlyArray<string>) => {
     const chars = sourceCodeCharArray

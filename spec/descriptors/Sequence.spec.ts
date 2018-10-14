@@ -36,6 +36,6 @@ describe('Sequence', () => {
 
     const instance = Sequence([Zero, One, Nothing])
 
-    expect(instance.matches(zeroOneNothing))
+    expect(instance.matches(zeroOneNothing)).toBeTruthy()
   })
 })

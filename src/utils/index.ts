@@ -54,3 +54,9 @@ export const isSet = (
 
   return true
 }
+
+export const assert = (predicate: boolean, msg?: string): void => {
+  if (!predicate) {
+    throw new Error(msg ? `Assertion error: ${msg}` : 'Assertion error')
+  }
+}

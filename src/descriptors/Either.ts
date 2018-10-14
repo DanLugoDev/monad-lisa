@@ -1,5 +1,6 @@
 import Type from '@app/Type'
 import { isSet } from '../utils'
+import defaultTransform from './defaultTransform'
 
 type Either = (of: ReadonlyArray<Type>, name?: string) => Type
 
@@ -22,7 +23,8 @@ const Either: Either = (of, name) => {
     },
     matches(tokens) {
       return of.some(type => type.matches(tokens))
-    }
+    },
+    transform: defaultTransform
   }
 }
 

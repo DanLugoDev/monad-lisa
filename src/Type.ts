@@ -33,8 +33,17 @@ export default interface Type {
   /**
    * Given a set of tokens, returns whether this set of tokens represents this
    * type or doesn't.
+   * @param tokens The tokens that could match
    */
   matches(tokens: ReadonlySet<Token>): boolean
+
+  /**
+   * Given a set of tokens that has been matched by this type. Returns a new
+   * token representing collection of these, as matched by this type.
+   * @param tokens The tokens that have already matched.
+   * @throws {Error} If the tokens passed in don't actually match this type.
+   */
+  transform(tokens: ReadonlySet<Token>): Token
 }
 
 export const isType = (x: any): x is Type => {

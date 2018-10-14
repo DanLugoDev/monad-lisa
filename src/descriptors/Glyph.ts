@@ -1,7 +1,7 @@
 import Token from '../Token'
 import Type from '../Type'
-
 import { every, reduceWithInitial } from '../utils/set'
+import defaultTransform from './defaultTransform'
 
 type Glyph = (matchedByType: Type, of: string, name?: string) => Type
 
@@ -44,7 +44,8 @@ const Glyph: Glyph = (matchedByType, of, name) => ({
     )
 
     return tokensAsString === of && allTokensMatchedByCorrectType
-  }
+  },
+  transform: defaultTransform
 })
 
 export default Glyph
