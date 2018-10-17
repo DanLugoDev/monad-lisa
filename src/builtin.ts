@@ -10,7 +10,9 @@ import Type from './Type'
  * @see Glyph
  */
 export const Tokenizer: Type = {
-  name: 'Tokenizer',
+  getName() {
+    return 'Tokenizer'
+  },
   dependencies() {
     return new Set()
   },

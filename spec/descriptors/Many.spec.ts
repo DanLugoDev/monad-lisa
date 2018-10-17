@@ -13,9 +13,9 @@ describe('Many', () => {
 
   it('throws an Error if allowTrallingSeparator() is called before specifying a separator', () => {
     expect(() => {
-      const instance = Many(Zero)
+      const anotherInstance = Many(Zero)
 
-      instance.allowTraillingSeparator()
+      anotherInstance.allowTraillingSeparator()
     }).toThrowError(Error)
   })
 
@@ -23,14 +23,6 @@ describe('Many', () => {
   const allowsTrailling = Many(Zero)
     .separatedBy(Nothing)
     .allowTraillingSeparator()
-
-  it('initializes to trailling separator not allowed', () => {
-    expect(instance.traillingSeparatorAllowed).toBeFalsy()
-  })
-
-  it('changes its traillingSeparator property when the setter method is called', () => {
-    expect(allowsTrailling.traillingSeparatorAllowed).toBeTruthy()
-  })
 
   it('matches one token of the type specified', () => {
     expect(

@@ -2,6 +2,7 @@ import Token from '@app/Token'
 import Type from '@app/Type'
 
 import { zipWith } from '../utils'
+import defaultTransform from './defaultTransform'
 
 type Sequence = (of: ReadonlyArray<Type>, name?: string) => Type
 
@@ -13,7 +14,9 @@ const Sequence: Sequence = (of, name) => {
   }
 
   return {
-    name,
+    getName() {
+      return name
+    },
     dependencies() {
       const dependenciesOfDependencies = of
         .map(type => type.dependencies())
@@ -37,7 +40,8 @@ const Sequence: Sequence = (of, name) => {
       )
 
       return matches.every(b => b)
-    }
+    },
+    transform: defaultTransform
   }
 }
 

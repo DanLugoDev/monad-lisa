@@ -1,6 +1,6 @@
 import 'jasmine'
 
-import { Tokenizer } from '../../src/builtin'
+import { LowercaseA, Nothing, Tokenizer } from '../../src/builtin'
 import Glyph from '../../src/descriptors/Glyph'
 import Token from '../../src/Token'
 import Type from '../../src/Type'
@@ -39,14 +39,6 @@ const spaceFooSpaceBazSpace = createTestTokenSet([
 const fooSpaceSpaceBaz = createTestTokenSet(['foo', ' ', ' ', 'baz'])
 
 describe('Glyph', () => {
-  it('is spawned with the correct name argument', () => {
-    const name = 'NAME'
-    const instance = Glyph(Tokenizer, 'x', name)
-
-    expect(instance.name).toBeDefined()
-    expect(instance.name).toEqual(name)
-  })
-
   it("Doesn't match tokens that weren't matched themselves by the `matchedBy` argument to the constructor", () => {
     const instance = Glyph({} as Type, 'foo')
 
@@ -121,5 +113,26 @@ describe('Glyph', () => {
     it("isn't fooled by extra spaces", () => {
       expect(instance.matches(fooSpaceSpaceBaz)).toBeFalsy()
     })
+  })
+
+  it('works as expected with some example definitions', () => {
+    const nothingTest1 = createTestTokenSet([''])
+    const nothingTest2 = createTestTokenSet(['', ''])
+    expect(Nothing.matches(nothingTest1)).toBeTruthy()
+    expect(Nothing.matches(nothingTest2)).toBeTruthy()
+
+    const aTest1 = createTestTokenSet(['a'])
+    const aTest2 = createTestTokenSet(['', 'a'])
+    const aTest3 = createTestTokenSet(['a', ''])
+    const aTest4 = createTestTokenSet(['', 'a', ''])
+
+    expect(LowercaseA.matches(aTest1)).toBeTruthy()
+    expect(LowercaseA.matches(aTest2)).toBeTruthy()
+    expect(LowercaseA.matches(aTest3)).toBeTruthy()
+    expect(LowercaseA.matches(aTest4)).toBeTruthy()
+
+    const lineBreakTest = createTestTokenSet(['\n'])
+
+    expect(Glyph(Tokenizer, '\n').matches(lineBreakTest)).toBeTruthy()
   })
 })

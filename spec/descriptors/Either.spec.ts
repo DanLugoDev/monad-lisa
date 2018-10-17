@@ -6,39 +6,44 @@ import Glyph from '../../src/descriptors/Glyph'
 import Token from '../../src/Token'
 import Type from '../../src/Type'
 
-const createTestTokenSet = (strs: string[]): ReadonlySet<Token> =>
-  new Set<Token>(
-    strs.map<Token>(str => ({
-      children: new Set(),
-      matchedBy: Tokenizer,
-      text: str
-    }))
-  )
+const getName = () => undefined
 
 const falseType: Type = {
+  getName,
   dependencies() {
     return new Set()
   },
   matches() {
     return false
+  },
+  transform() {
+    return {} as Token
   }
 }
 
 const falseTypeB: Type = {
+  getName,
   dependencies() {
     return new Set()
   },
   matches() {
     return false
+  },
+  transform() {
+    return {} as Token
   }
 }
 
 const trueType: Type = {
+  getName,
   dependencies() {
     return new Set()
   },
   matches() {
     return true
+  },
+  transform() {
+    return {} as Token
   }
 }
 

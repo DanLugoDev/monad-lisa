@@ -15,7 +15,7 @@ export default interface Type {
   /**
    * Optional if you want a JSON/string representation of the AST.
    */
-  readonly name?: string
+  getName(): string | undefined
 
   /**
    * Returns a set of types on which this type is fundamented and is dependant

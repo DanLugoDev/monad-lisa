@@ -28,7 +28,9 @@ const stringifyTokens = (tokens: ReadonlySet<Token>) =>
  * @param name Optional name if a readable AST is to be created
  */
 const Glyph: Glyph = (matchedByType, of, name) => ({
-  name,
+  getName() {
+    return name
+  },
   dependencies() {
     return new Set()
   },

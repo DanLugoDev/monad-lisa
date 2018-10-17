@@ -4,73 +4,77 @@ import { pickFirst } from '../utils/set'
 import defaultTransform from './defaultTransform'
 
 export interface Many extends Type {
-  separator?: Type
-  traillingSeparatorAllowed: boolean
   separatedBy(separator: Type): Many
   allowTraillingSeparator(): Many
 }
 
-const Many = (of: Type, name?: string): Many => ({
-  name,
-  traillingSeparatorAllowed: false,
-  allowTraillingSeparator() {
-    if (typeof this.separator === 'undefined') {
-      throw new Error('Specify separator before calling this method')
-    }
-    if (this.traillingSeparatorAllowed) {
-      throw new Error('Method called twice')
-    }
-    this.traillingSeparatorAllowed = true
-    return this
-  },
-  dependencies() {
-    return new Set([of, ...of.dependencies()])
-  },
-  matches(tokens) {
-    if (typeof this.separator === 'undefined') {
-      throw new ReferenceError('Specify separator first')
-    }
-    if (tokens.size < 1) return false
-    const separator = this.separator
+const Many = (of: Type, name?: string): Many => {
+  let traillingSeparatorAllowed = false
+  let separator: Type
 
-    // MDN says insertion order
-    const tokenList = Array.from(tokens)
-    assert(tokenList.length === tokens.size)
-    assert(pickFirst(tokens) === tokenList[0])
+  return {
+    getName() {
+      return name
+    },
 
-    // even - indexed tokens are of the type of "of"
-    const actualTokens = tokenList.filter((_, i) => i % 2 === 0)
-    assert(actualTokens.length > 0)
-    // odd - indexed tokens are of the type of the separator (separatedBy)
-    const separators = tokenList.filter((_, i) => i % 2 !== 0)
+    allowTraillingSeparator() {
+      if (typeof separator === 'undefined') {
+        throw new Error('Specify separator before calling this method')
+      }
+      if (traillingSeparatorAllowed) {
+        throw new Error('Method called twice')
+      }
+      traillingSeparatorAllowed = true
+      return this
+    },
+    dependencies() {
+      return new Set([of, ...of.dependencies()])
+    },
+    matches(tokens) {
+      if (typeof separator === 'undefined') {
+        throw new ReferenceError('Specify separator first')
+      }
+      if (tokens.size < 1) return false
 
-    // if any of the candidate tokens don't match the "of" type, don't match.
-    if (actualTokens.some(token => token.matchedBy !== of)) return false
+      // MDN says insertion order
+      const tokenList = Array.from(tokens)
+      assert(tokenList.length === tokens.size)
+      assert(pickFirst(tokens) === tokenList[0])
 
-    // dont check for separators
-    if (actualTokens.length === 1) {
-      return true
-    }
-    // if any of the candidate separators is of the wrong type, there's no match
-    if (separators.some(sep => sep.matchedBy !== separator)) return false
+      // even - indexed tokens are of the type of "of"
+      const actualTokens = tokenList.filter((_, i) => i % 2 === 0)
+      assert(actualTokens.length > 0)
+      // odd - indexed tokens are of the type of the separator (separatedBy)
+      const separators = tokenList.filter((_, i) => i % 2 !== 0)
 
-    if (
-      this.traillingSeparatorAllowed &&
-      separators.length === actualTokens.length + 1
-    ) {
-      return true
-    }
+      // if any of the candidate tokens don't match the "of" type, don't match.
+      if (actualTokens.some(token => token.matchedBy !== of)) return false
 
-    return (
-      separators.length === actualTokens.length - 1 ||
-      separators.length === actualTokens.length
-    )
-  },
-  separatedBy(separator) {
-    this.separator = separator
-    return this
-  },
-  transform: defaultTransform
-})
+      // dont check for separators
+      if (actualTokens.length === 1) {
+        return true
+      }
+      // if any of the candidate separators is of the wrong type, there's no match
+      if (separators.some(sep => sep.matchedBy !== separator)) return false
+
+      if (
+        traillingSeparatorAllowed &&
+        separators.length === actualTokens.length + 1
+      ) {
+        return true
+      }
+
+      return (
+        separators.length === actualTokens.length - 1 ||
+        separators.length === actualTokens.length
+      )
+    },
+    separatedBy(separatorType) {
+      separator = separatorType
+      return this
+    },
+    transform: defaultTransform
+  }
+}
 
 export default Many

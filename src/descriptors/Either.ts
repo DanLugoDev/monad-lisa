@@ -13,7 +13,9 @@ const Either: Either = (of, name) => {
   }
 
   return {
-    name,
+    getName() {
+      return name
+    },
     dependencies() {
       const dependenciesOfDependencies = of
         .map(type => type.dependencies())
