@@ -4,7 +4,6 @@ import Token from '@app/Token'
 import Type from '@app/Type'
 import { filter, map, pickFirst } from '@app/utils/set'
 import findBranches from './findBranches'
-import lazyToReal from './lazyToReal'
 
 // returns one single token representing the root of the AST
 type Parser = (sourceCodeCharArray: ReadonlyArray<string>) => Token

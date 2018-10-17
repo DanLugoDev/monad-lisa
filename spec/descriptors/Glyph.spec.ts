@@ -1,9 +1,9 @@
 import 'jasmine'
 
-import { LowercaseA, Nothing, Tokenizer } from '../../src/builtin'
-import Glyph from '../../src/descriptors/Glyph'
-import Token from '../../src/Token'
-import Type from '../../src/Type'
+import { LowercaseA, Nothing, Tokenizer } from '@app/builtin'
+import Glyph from '@app/descriptors/Glyph'
+import Token from '@app/Token'
+import Type from '@app/Type'
 
 const createTestTokenSet = (strs: string[]): ReadonlySet<Token> =>
   new Set<Token>(

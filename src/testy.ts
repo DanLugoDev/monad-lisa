@@ -1,13 +1,13 @@
-import Either from './descriptors/Either'
+import Either from '@app/descriptors/Either'
 
 import { LowercaseC, Nothing, Tokenizer, Word } from './builtin'
 
-import Glyph from './descriptors/Glyph'
-import Many from './descriptors/Many'
-import Sequence from './descriptors/Sequence'
-import transform from './parsing/transform'
-import Token from './Token'
-import { intersperseWithNothing } from './utils'
+import Glyph from '@app/descriptors/Glyph'
+import Many from '@app/descriptors/Many'
+import Sequence from '@app/descriptors/Sequence'
+import transform from '@app/parsing/transform'
+import Token from '@app/Token'
+import { intersperseWithNothing } from '@app/utils'
 
 const buildTokenizerTokens = (text: string): Set<Token> =>
   new Set(

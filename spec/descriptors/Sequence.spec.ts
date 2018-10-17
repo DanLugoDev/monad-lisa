@@ -1,8 +1,8 @@
 import 'jasmine'
 
-import { Nothing, One, Zero } from '../../src/builtin'
-import Sequence from '../../src/descriptors/Sequence'
-import Token from '../../src/Token'
+import { Nothing, One, Zero } from '@app/builtin'
+import Sequence from '@app/descriptors/Sequence'
+import Token from '@app/Token'
 
 describe('Sequence', () => {
   it('throws TypeError when supplied with fewer than 2 types', () => {

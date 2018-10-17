@@ -1,7 +1,7 @@
 import Token from '@app/Token'
 import Type from '@app/Type'
 
-import { zipWith } from '../utils'
+import { zipWith } from '@app/utils'
 import defaultTransform from './defaultTransform'
 
 type Sequence = (of: ReadonlyArray<Type>, name?: string) => Type

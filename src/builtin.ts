@@ -1,7 +1,7 @@
-import Either from './descriptors/Either'
-import Glyph from './descriptors/Glyph'
-import Many from './descriptors/Many'
-import Type from './Type'
+import Either from '@app/descriptors/Either'
+import Glyph from '@app/descriptors/Glyph'
+import Many from '@app/descriptors/Many'
+import Type from '@app/Type'
 
 /**
  * The tokenizer type is the one that will be found in the `matchedBy` attribute

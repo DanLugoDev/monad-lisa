@@ -6,13 +6,12 @@ import {
   RightSquareBracket,
   Tokenizer,
   Zero
-} from '../../src/builtin'
-import Either from '../../src/descriptors/Either'
-import Lazy from '../../src/descriptors/Lazy'
-import Many from '../../src/descriptors/Many'
-import Sequence from '../../src/descriptors/Sequence'
-import Token from '../../src/Token'
-import Type from '../../src/Type'
+} from '@app/builtin'
+import Either from '@app/descriptors/Either'
+import Lazy from '@app/descriptors/Lazy'
+import Many from '@app/descriptors/Many'
+import Sequence from '@app/descriptors/Sequence'
+import Token from '@app/Token'
 
 const zeroTestTokens = new Set<Token>([
   {

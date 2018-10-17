@@ -1,7 +1,7 @@
 import 'jasmine'
 
-import defaultTransform from '../../src/parsing/transform'
-import Type from '../../src/Type'
+import defaultTransform from '@app/parsing/transform'
+import Type from '@app/Type'
 
 describe('defaultTransform', () => {
   it('transforms things', () => {})

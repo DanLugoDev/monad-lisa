@@ -1,6 +1,6 @@
-import Token from '../Token'
-import Type from '../Type'
-import { every, reduceWithInitial } from '../utils/set'
+import Token from '@app/Token'
+import Type from '@app/Type'
+import { every, reduceWithInitial } from '@app/utils/set'
 import defaultTransform from './defaultTransform'
 
 type Glyph = (matchedByType: Type, of: string, name?: string) => Type

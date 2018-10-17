@@ -1,6 +1,6 @@
 import Type from '@app/Type'
-import { assert } from '../utils'
-import { pickFirst } from '../utils/set'
+import { assert } from '@app/utils'
+import { pickFirst } from '@app/utils/set'
 import defaultTransform from './defaultTransform'
 
 export interface Many extends Type {

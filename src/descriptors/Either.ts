@@ -1,5 +1,5 @@
 import Type from '@app/Type'
-import { isSet } from '../utils'
+import { isSet } from '@app/utils'
 import defaultTransform from './defaultTransform'
 
 type Either = (of: ReadonlyArray<Type>, name?: string) => Type

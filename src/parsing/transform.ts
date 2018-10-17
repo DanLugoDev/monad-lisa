@@ -1,6 +1,6 @@
 import Token from '@app/Token'
 import Type from '@app/Type'
-import { reduceWithInitial } from '../utils/set'
+import { reduceWithInitial } from '@app/utils/set'
 
 type Transform = (
   matchingType: Type,

@@ -1,5 +1,5 @@
 import Token from '@app/Token'
-import { isSet } from './utils'
+import { isSet } from '@app/utils'
 
 /**
  * Category theory

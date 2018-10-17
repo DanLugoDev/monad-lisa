@@ -1,8 +1,8 @@
 import 'jasmine'
 
-import { Nothing, One, Zero } from '../../src/builtin'
-import Many from '../../src/descriptors/Many'
-import Token from '../../src/Token'
+import { Nothing, One, Zero } from '@app/builtin'
+import Many from '@app/descriptors/Many'
+import Token from '@app/Token'
 
 describe('Many', () => {
   it('throws a TypeError if matches() is called before specifying a separator', () => {

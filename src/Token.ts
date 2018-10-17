@@ -1,4 +1,4 @@
-import Type from './Type'
+import Type from '@app/Type'
 
 /**
  * A token, in common parsing argo token, represents an indivisible

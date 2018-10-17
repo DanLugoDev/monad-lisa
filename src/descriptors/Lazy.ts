@@ -1,5 +1,4 @@
-import Token from '../Token'
-import Type from '../Type'
+import Type from '@app/Type'
 import defaultTransform from './defaultTransform'
 
 interface Lazy extends Type {

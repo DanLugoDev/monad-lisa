@@ -1,10 +1,10 @@
 import 'jasmine'
 
-import { Tokenizer } from '../../src/builtin'
-import Either from '../../src/descriptors/Either'
-import Glyph from '../../src/descriptors/Glyph'
-import Token from '../../src/Token'
-import Type from '../../src/Type'
+import { Tokenizer } from '@app/builtin'
+import Either from '@app/descriptors/Either'
+import Glyph from '@app/descriptors/Glyph'
+import Token from '@app/Token'
+import Type from '@app/Type'
 
 const getName = () => undefined
 
