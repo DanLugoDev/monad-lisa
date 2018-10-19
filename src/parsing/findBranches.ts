@@ -2,10 +2,8 @@ import Token from '@app/Token'
 import Type from '@app/Type'
 import { filter } from '@app/utils/set'
 
-const tokensToMatches = (
-  typesThatCouldMatch: ReadonlySet<Type>,
-  tokensToBeMatched: ReadonlySet<Token>
-) => filter(type => type.matches(tokensToBeMatched), typesThatCouldMatch)
+const toMatches = (tokens: ReadonlyArray<Token>) => (type: Type) =>
+  type.transform(new Set(tokens))
 
 export const findBranches = (
   typesSet: ReadonlySet<Type>,
@@ -23,17 +21,23 @@ export const __createBranchFinder = (types: ReadonlyArray<Type>) => (
   toMatch: ReadonlyArray<Token>
 ): ReadonlyArray<ReadonlyArray<Token>> => {
   const workingArea: Token[] = []
+  const branches = []
 
   if (toMatch.length === 0) {
-    return [alreadyMatched]
+    return []
   }
 
   toMatch.forEach(token => {
     workingArea.push(token)
-
-    const typesCouldMatch = types.filter(type =>
-      type.matches(new Set(workingArea))
+    const workingAreaSet = new Set(workingArea)
+    const typesThatCouldMatch = types.filter(type =>
+      type.matches(workingAreaSet)
     )
+    const transforms = typesThatCouldMatch.map(type =>
+      type.transform(workingAreaSet)
+    )
+
+    const moreBranches = alreadyMatched.forEach(token => {})
   })
 }
 

@@ -12,7 +12,7 @@ const stringifyTokens = (tokens: ReadonlySet<Token>) =>
  * The glyph descriptor creates types from provided strings, allowing easy
  * creation of keywords. E.g.:
  * ```
- * const VarKeyword = Sequence([lowerCaseA, lowerCaseB, lowerCaseC])
+ * const VarKeyword = Sequence([LowerCaseA, LowerCaseB, LowerCaseC])
  * // vs
  * const VarKeyWord = Glyph(Tokenizer, 'var')
  * ```
