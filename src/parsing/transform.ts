@@ -16,13 +16,13 @@ type Transform = (
  */
 const transform: Transform = (matchingType, matchedTokens) => {
   if (matchedTokens.size < 1) {
-    throw new TypeError(
+    throw new RangeError(
       'Must provide tokens to transform(), an empty set was provided'
     )
   }
 
   if (!matchingType.matches(matchedTokens)) {
-    throw new Error(
+    throw new TypeError(
       "matchingType argument given to transform() doesn't match the tokens supplied, there is probably an error in the calling code"
     )
   }
