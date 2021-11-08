@@ -29,7 +29,6 @@
   "homepage": "https://github.com/danlugo92/monad-lisa#readme",
   "devDependencies": {
     "@types/jasmine": "^2.8.9",
-    "@types/webpack": "^4.4.0",
     "clean-webpack-plugin": "^0.1.19",
     "jasmine": "2.x.x",
     "prettier": "^1.14.3",
