@@ -145,7 +145,7 @@ describe('Many', () => {
   })
 
   it('matches if a trailling separator occurs and it was allowed', () => {
-    const tokens = [
+    const tokens: readonly Token[] = [
       {
         children: new Set(),
         matchedBy: Zero,
