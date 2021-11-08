@@ -21,6 +21,8 @@ const Sequence: Sequence = (of, name) => {
       const dependenciesOfDependencies = of
         .map(type => type.dependencies())
         .flat()
+        .map(set => Array.from(set))
+        .flat()
 
       return new Set([...of, ...dependenciesOfDependencies])
     },
