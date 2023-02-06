@@ -1,7 +1,7 @@
 /**
  * A char is an string of length one or zero.
  */
-type Char = string
+type Char = string // TODO: Make it unique type
 export default Char
 
 /**
