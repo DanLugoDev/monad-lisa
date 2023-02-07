@@ -495,3 +495,5 @@ export const Digit = Either(
 )
 
 export const NumberGlyph = Many(Digit, 'Number').separatedBy(Nothing)
+
+export const Space = Glyph(Tokenizer, ' ', 'Space')
