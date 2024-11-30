@@ -1,6 +1,6 @@
 import Token from '@app/Token'
 import Type from '@app/Type'
-import { reduceWithInitial } from '@app/utils/set'
+import { reduce } from '@app/utils/set'
 
 export default function defaultTransform(
   this: Type,
@@ -12,8 +12,15 @@ export default function defaultTransform(
   return {
     children: tokens,
     matchedBy: this,
-    text: reduceWithInitial<Token, string>(
-      (str, { text }) => (str += text),
+    text: reduce<Token, string>(
+      (
+        str,
+        { text } = {
+          children: [],
+          matchedBy: {},
+          text: ''
+        }
+      ) => (str += text),
       '',
       tokens
     )
